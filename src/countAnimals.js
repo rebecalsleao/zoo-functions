@@ -11,11 +11,11 @@ function countAnimals(animal) {
       result[keySpecies] = valueSpecies;
     });
     return result;
-  } else if (animal.sex === undefined) {
-    return data.species.find((specie) => specie.name === animal.specie).residents.length;
-  } else {
-    return data.species.find((specie) => specie.name === animal.specie).residents.filter((resident) => resident.sex === animal.sex).length;
   }
+  if (animal.sex === undefined) {
+    return data.species.find((specie) => specie.name === animal.specie).residents.length;
+  }
+  return data.species.find((specie) => specie.name === animal.specie).residents.filter((resident) => resident.sex === animal.sex).length;
 }
 
 module.exports = countAnimals;
