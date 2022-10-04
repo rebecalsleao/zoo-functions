@@ -23,4 +23,10 @@ describe('Testes da função HandlerElephants', () => {
   it('Verificar se não passando argumentos a função retorna undefined', () => {
     expect(handlerElephants()).toBe(undefined);
   });
+  it('Verificar se passando por argumento um objeto vazio ({}) deve retornar a string "Parâmetro inválido, é necessário uma string"', () => {
+    expect(handlerElephants({})).toEqual('Parâmetro inválido, é necessário uma string');
+  });
+  it('Verificar se passada uma string que não contempla uma funcionalidade deve retornar null.', () => {
+    expect(handlerElephants('boi')).toBe(null);
+  });
 });
