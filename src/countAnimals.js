@@ -20,14 +20,3 @@ function countAnimals(animal) {
 }
 
 module.exports = countAnimals;
-
-// let result;
-// data.species.forEach((element) => {
-//   if (element.name === specie) {
-//     result = element.residents.every((resident) => resident.age >= minAge);
-//   }
-// });
-// return result;
-// }
-
-// Object.value(parametro).length === 0
