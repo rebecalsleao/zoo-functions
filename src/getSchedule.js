@@ -38,10 +38,12 @@ function allSchedule() {
 }
 
 function getSchedule(scheduleTarget) {
-  if (scheduleTarget === undefined) {
+  const specieFound = data.species.find((specie) => specie.name === scheduleTarget);
+  const day = data.hours[scheduleTarget];
+
+  if (day === undefined && specieFound === undefined) {
     return allSchedule();
   }
-  const specieFound = data.species.find((specie) => specie.name === scheduleTarget);
   if (specieFound === undefined) {
     const result = {};
     result[scheduleTarget] = getScheduleDay(scheduleTarget);
@@ -50,5 +52,4 @@ function getSchedule(scheduleTarget) {
   return specieFound.availability;
 }
 
-console.log(getSchedule('Saturday'));
 module.exports = getSchedule;
