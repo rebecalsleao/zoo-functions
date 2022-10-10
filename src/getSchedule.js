@@ -11,34 +11,44 @@ function findSpeciesInExibitionPerDay(day) {
   return speciesInExibition;
 }
 
+function getScheduleDay(day) {
+  const openHour = data.hours[day].open;
+  const closeHour = data.hours[day].close;
+  let speciesInExibition = findSpeciesInExibitionPerDay(day);
+
+  let workingHours = `Open from ${openHour}am until ${closeHour}pm`;
+  if (openHour === 0) {
+    workingHours = 'CLOSED';
+    speciesInExibition = 'The zoo will be closed!';
+  }
+
+  return {
+    officeHour: workingHours,
+    exhibition: speciesInExibition,
+  };
+}
+
 function allSchedule() {
   const result = {};
   Object.keys(data.hours).forEach((day) => {
-    const openHour = data.hours[day].open;
-    const closeHour = data.hours[day].close;
-    let speciesInExibition = findSpeciesInExibitionPerDay(day);
-
-    let workingHours = `Open from ${openHour}am until ${closeHour}pm`;
-    if (openHour === 0) {
-      workingHours = 'CLOSED';
-      speciesInExibition = 'The zoo will be closed!';
-    }
-
-    result[day] = {
-      officeHour: workingHours,
-      exhibition: speciesInExibition,
-    };
+    const scheduleDay = getScheduleDay(day);
+    result[day] = scheduleDay;
   });
   return result;
 }
 
 function getSchedule(scheduleTarget) {
+  if (scheduleTarget === undefined) {
+    return allSchedule();
+  }
   const specieFound = data.species.find((specie) => specie.name === scheduleTarget);
   if (specieFound === undefined) {
-    return allSchedule();
+    const result = {};
+    result[scheduleTarget] = getScheduleDay(scheduleTarget);
+    return result;
   }
   return specieFound.availability;
 }
 
-console.log(getSchedule());
+console.log(getSchedule('Saturday'));
 module.exports = getSchedule;
